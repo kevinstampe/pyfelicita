@@ -55,9 +55,7 @@ class Felicita:
     def is_connected(self):
         return datetime.now() - self.last_update < timedelta(seconds=5)
     
-    async def _disconnect_callback(self):
-        await self.BLEClient.stop_notify(DATA_CHARACTERISTIC_UUID)
-        self.is_connected = False
+    def _disconnect_callback(client):
         print("Disconnected from the scale")
 
     async def _parse_status_update(self, felicita_raw_status):
