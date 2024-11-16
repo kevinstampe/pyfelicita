@@ -25,7 +25,7 @@ from pyfelicita.constants import (
 class Felicita:
     def __init__(self, address, timeout=1.0):
         self.address = address
-        self.BLEClient = BleakClient(address, self.disconnect_callback, timeout=timeout)
+        self.BLEClient = BleakClient(address, self._disconnect_callback, timeout=timeout)
         self.current_weight = 0
         self.current_battery_level = 0
         self.current_scale_unit = ""
