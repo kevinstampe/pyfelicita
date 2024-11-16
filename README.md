@@ -42,6 +42,7 @@ async def main():
                 
             if(client.current_weight > 69):
                 await client.stop_timer()
+                print("Criteria met, stopping program")
                 break
                     
     finally:

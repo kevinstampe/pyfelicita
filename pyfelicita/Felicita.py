@@ -34,11 +34,11 @@ class Felicita:
         self.timer_start_time = None
         self.timer_time_elapsed = 0
         self.last_update = None
+        self.malformed_count = 0
 
     @classmethod
     async def create(cls, address):
         instance = cls(address)
-        instance.BLEClient = BleakClient(address)
         try:
             await instance.BLEClient.connect()
             await instance.BLEClient.start_notify(DATA_CHARACTERISTIC_UUID, instance._notification_handler)
@@ -62,9 +62,12 @@ class Felicita:
 
     async def _parse_status_update(self, felicita_raw_status):
         if len(felicita_raw_status) != 18:
-            print("felicita, Malformed data")
+            self.malformed_count += 1
+            if(self.malformed_count > 5):
+                print("Scale returned malformed data")
             return
-
+        
+        self.malformed_count = 0
         weight_bytes = felicita_raw_status[3:9]
         weight = "".join([str(b - 48) for b in weight_bytes])
         scale_unit = bytes(felicita_raw_status[9:11]).decode("utf-8")

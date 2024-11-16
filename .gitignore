@@ -3,3 +3,4 @@
 .vscode
 dist
 pyfelicita.egg-info
+]*.py
