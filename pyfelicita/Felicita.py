@@ -33,7 +33,7 @@ class Felicita:
         self.is_timer_running = False
         self.timer_start_time = None
         self.timer_time_elapsed = 0
-        self.last_update = None
+        self.last_update = datetime.now()
         self.malformed_count = 0
 
     @classmethod
