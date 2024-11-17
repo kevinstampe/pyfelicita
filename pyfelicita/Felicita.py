@@ -45,9 +45,8 @@ class Felicita:
             print("Connected to the scale")
             return instance
         except Exception as e:
-            print(f"Error: {e}")
             await instance.BLEClient.disconnect()
-            return None
+            return f"Error: {e}"
                 
     async def disconnect(self):
         await self.BLEClient.disconnect()
