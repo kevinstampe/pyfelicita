@@ -37,16 +37,16 @@ class Felicita:
         self.malformed_count = 0
 
     @classmethod
-    async def create(cls, address):
-        instance = cls(address)
+    async def create(cls, address, disconnect_callback = None):
+        instance = cls(address, disconnect_callback)
         try:
             await instance.BLEClient.connect()
             await instance.BLEClient.start_notify(DATA_CHARACTERISTIC_UUID, instance._notification_handler)
             print("Connected to the scale")
             return instance
-        except Exception as e:
+        except Exception:
             await instance.BLEClient.disconnect()
-            return f"Error: {e}"
+            return None
                 
     async def disconnect(self):
         await self.BLEClient.disconnect()
