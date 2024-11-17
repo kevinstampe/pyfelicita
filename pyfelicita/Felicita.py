@@ -23,9 +23,9 @@ from pyfelicita.constants import (
 )
 
 class Felicita:
-    def __init__(self, address, timeout=1.0):
+    def __init__(self, address, disconnect_callback, timeout=1.0):
         self.address = address
-        self.BLEClient = BleakClient(address, self._disconnect_callback, timeout=timeout)
+        self.BLEClient = BleakClient(address, disconnect_callback, timeout=timeout)
         self.current_weight = 0
         self.current_battery_level = 0
         self.current_scale_unit = ""
@@ -54,9 +54,6 @@ class Felicita:
     def is_connected(self):
         return datetime.now() - self.last_update < timedelta(seconds=5)
     
-    def _disconnect_callback(self, client):
-        print("Disconnected from the scale")
-
     async def _parse_status_update(self, felicita_raw_status):
         if len(felicita_raw_status) != 18:
             self.malformed_count += 1
