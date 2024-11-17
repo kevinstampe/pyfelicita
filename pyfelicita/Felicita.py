@@ -52,7 +52,7 @@ class Felicita:
         await self.BLEClient.disconnect()
 
     def is_connected(self):
-        return datetime.now() - self.last_update < timedelta(seconds=5)
+        return datetime.now() - self.last_update < timedelta(seconds=1)
     
     async def _parse_status_update(self, felicita_raw_status):
         if len(felicita_raw_status) != 18:
