@@ -55,7 +55,7 @@ class Felicita:
     def is_connected(self):
         return datetime.now() - self.last_update < timedelta(seconds=5)
     
-    def _disconnect_callback(client):
+    def _disconnect_callback(self, client):
         print("Disconnected from the scale")
 
     async def _parse_status_update(self, felicita_raw_status):
