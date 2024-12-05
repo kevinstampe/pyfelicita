@@ -1,5 +1,5 @@
 # pyfelicita
-## Felicita integration package for python
+## Package for integrating a Felicita scale to your python project
 
 Example code:
 ```
