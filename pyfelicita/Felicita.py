@@ -106,12 +106,9 @@ class Felicita:
         backoff = 1.0
         while not self._stop_evt.is_set():
             try:
-                client = BleakClient(self.address, timeout=self._timeout)
+                client = BleakClient(self.address, timeout=self._timeout, disconnected_callback=self._on_disconnected)
                 await client.connect()
                 self.BLEClient = client
-
-                # wire disconnect callback
-                client.set_disconnected_callback(self._on_disconnected)
 
                 # start notify + writer
                 await self._post_connect()
@@ -136,7 +133,7 @@ class Felicita:
     async def _post_connect(self):
         # Cache services (best effort)
         with suppress(Exception):
-            await self.BLEClient.get_services()
+            _ = self.BLEClient.services
 
         # Start notifications (non-blocking handler)
         await self.BLEClient.start_notify(DATA_CHARACTERISTIC_UUID, self._notification_handler)
