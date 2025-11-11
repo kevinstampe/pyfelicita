@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="pyfelicita",
-    version="0.1.12",
+    version="0.1.13",
     description="A Bluetooth scale integration for coffee machines",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
