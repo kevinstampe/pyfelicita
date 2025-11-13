@@ -52,7 +52,7 @@ class Felicita:
         await self.BLEClient.disconnect()
 
     def is_connected(self):
-        return datetime.now() - self.last_update < timedelta(seconds=1)
+        return datetime.now() - self.last_update < timedelta(seconds=5)
     
     async def _parse_status_update(self, felicita_raw_status):
         if len(felicita_raw_status) != 18:
@@ -91,7 +91,7 @@ class Felicita:
         await self._parse_status_update(bytearray(data))
 
     async def send_command(self, command):
-        await self.BLEClient.write_gatt_char(DATA_CHARACTERISTIC_UUID, bytearray([command]))
+        return await self.BLEClient.write_gatt_char(DATA_CHARACTERISTIC_UUID, bytearray([command]), response=True)
 
     async def set_weight_only_mode(self):
         await self.send_command(CMD_WEIGHT_ONLY_MODE)
